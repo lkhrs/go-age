@@ -50,5 +50,5 @@ func main() {
 	firstDate := prompt("Enter date (YYYY-MM-DD): ")
 	secondDate := prompt("Enter second date (press enter for today): ")
 	first, second, years := timeElapsed(firstDate, secondDate)
-	fmt.Printf("%.1f years between %s and %s", years, first.Format(time.DateOnly), second.Format(time.DateOnly))
+	fmt.Printf("%.2f years between %s and %s", years, first.Format(time.DateOnly), second.Format(time.DateOnly))
 }
