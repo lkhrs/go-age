@@ -8,16 +8,16 @@ import (
 	"time"
 )
 
-func prompt(prompt string) (s string) {
+func prompt(prompt string) (input string) {
 	r := bufio.NewReader(os.Stdin)
 	fmt.Fprintf(os.Stderr, prompt)
-	s, _ = r.ReadString('\n')
-	s = strings.TrimSpace(s)
+	input, _ = r.ReadString('\n')
+	input = strings.TrimSpace(input)
 	return
 }
 
-func timeElapsed(s string) (years float64) {
-	date, err := time.Parse(time.DateOnly, s)
+func timeElapsed(input string) (years float64) {
+	date, err := time.Parse(time.DateOnly, input)
 	if err != nil {
 		panic(err)
 	}
@@ -28,7 +28,7 @@ func timeElapsed(s string) (years float64) {
 
 // TODO: Print "It has been x years, x months, x days, and x minutes since date."
 func main() {
-	s := prompt("Enter date (YYYY-MM-DD): ")
-	years := timeElapsed(s)
-	fmt.Printf("%.2f years since %s", years, s)
+	input := prompt("Enter date (YYYY-MM-DD): ")
+	years := timeElapsed(input)
+	fmt.Printf("%.2f years since %s", years, input)
 }
