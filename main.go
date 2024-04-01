@@ -39,6 +39,9 @@ func prompt(prompt string) (input string) {
 func timeElapsed(first, second string) (firstDate, secondDate time.Time, years float64) {
 	firstDate = dateCheck(first)
 	secondDate = dateCheck(second)
+	if firstDate.After(secondDate) {
+		firstDate, secondDate = secondDate, firstDate
+	}
 	elapsed := secondDate.Sub(firstDate).Minutes()
 	years = elapsed / 60 / 24 / 365
 	return
