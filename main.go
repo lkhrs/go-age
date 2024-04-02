@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/icza/gox/timex"
 	"os"
 	"strings"
 	"time"
@@ -35,23 +36,17 @@ func prompt(prompt string) (input string) {
 }
 
 // Calculate the time between two dates
-// TODO: Calculate years, months, days, and minutes
-func timeElapsed(first, second string) (firstDate, secondDate time.Time, years float64) {
+func timeElapsed(first, second string) (firstDate, secondDate time.Time, year, month, day int) {
 	firstDate = dateCheck(first)
 	secondDate = dateCheck(second)
-	if firstDate.After(secondDate) {
-		firstDate, secondDate = secondDate, firstDate
-	}
-	elapsed := secondDate.Sub(firstDate).Minutes()
-	years = elapsed / 60 / 24 / 365
+	year, month, day, _, _, _ = timex.Diff(firstDate, secondDate)
 	return
 }
 
 // Set up the prompts, compare the inputs, and print the result.
-// TODO: Print "It has been x years, x months, x days, and x minutes since date."
 func main() {
 	firstDate := prompt("Enter date (YYYY-MM-DD): ")
 	secondDate := prompt("Enter second date (press enter for today): ")
-	first, second, years := timeElapsed(firstDate, secondDate)
-	fmt.Printf("%.2f years between %s and %s", years, first.Format(time.DateOnly), second.Format(time.DateOnly))
+	first, second, year, month, day := timeElapsed(firstDate, secondDate)
+	fmt.Printf("%v years, %v months, %v days between %v and %v", year, month, day, first.Format(time.DateOnly), second.Format(time.DateOnly))
 }
